@@ -11,14 +11,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''cd /home/hari-1/simple-app
-                npm install'''
+                sh '''npm install'''
             }
         }
         stage('Testing') {
             steps {
                 sh '''
-                cd /home/hari-1/simple-app
                 npm test
                 npm run test:coverage
                 '''
@@ -27,7 +25,6 @@ pipeline {
         stage('Code Review') {
             steps {
                 sh '''
-                cd /home/hari-1/simple-app
                 sonar-scanner \
                 -Dsonar.projectKey=simple-app \
                 -Dsonar.sources=. \
@@ -39,7 +36,6 @@ pipeline {
         stage('Deploy compose') {
             steps {
                 sh '''
-                cd /home/hari-1/simple-app
                 docker compose build
                 docker compose up -d
                 '''
@@ -48,7 +44,6 @@ pipeline {
         stage('Build and Push Image') {
             steps {
                 sh '''
-                cd /home/hari-1/simple-app 
                 docker build -t dedhens/simple-app . 
                 docker push dedhens/simple-app
                 '''
