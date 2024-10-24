@@ -25,18 +25,14 @@ pipeline {
                 '''
             }
         }
-        // stage('Code Review') {
-        //     steps {
-        //         sh '''
-        //         cd apps
-        //         sonar-scanner \
-        //         -Dsonar.projectKey=simple-app \
-        //         -Dsonar.sources=. \
-        //         -Dsonar.host.url=https://172.23.14.4:9000 \
-        //         -Dsonar.login=sqp_c2be27f9008dc49c37ad4eb6d174c3620340a9d3
-        //         '''
-        //     }
-        // }
+        stage('Code Review') {
+            steps {
+                sh '''
+                cd apps
+                sonar-scanner   -Dsonar.projectKey=simple-app   -Dsonar.sources=.   -Dsonar.host.url=http://172.23.14.4:9000   -Dsonar.login=sqp_c2be27f9008dc49c37ad4eb6d174c3620340a9d3
+                '''
+            }
+        }
         stage('Deploy compose') {
             steps {
                 sh '''
