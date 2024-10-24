@@ -48,6 +48,7 @@ pipeline {
         stage('Build and Push Image') {
             steps {
                 sh '''
+                cd apps
                 docker build -t dedhens/simple-app . 
                 docker push dedhens/simple-app
                 '''
